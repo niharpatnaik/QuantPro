@@ -1,0 +1,106 @@
+Working Name & Tagline
+Primary Name: AlphaArena
+Tagline: Practice, Backtest, and Prove Your Edge.
+Who It’s For (Role-Based Tracks)
+
+Alpha Researcher / Quant – feature engineering, factor modeling, statistical tests, ML for time series.
+Quant Developer / Data Engineer – low-latency, robust pipelines, kdb+/q, Python/C++ infra.
+Portfolio Manager / Risk – portfolio optimization, scenario analysis, VaR/ES, limits & constraints.
+Execution / Microstructure – order book modeling, impact costs, routing, slippage, best execution.
+Ops / Compliance / Model Risk – reproducibility, audit trails, SR 11‑7 style documentation, data governance.
+Core Idea (How It’s Like LeetCode, But for Funds)
+Like LeetCode, AlphaArena is a structured, tiered problem set with an in-browser coding environment.
+Unlike LeetCode, problems are scored by investment performance & risk (Sharpe, drawdown, turnover, stability), not only algorithmic correctness. Users run backtests in-sandbox against synthetic and anonymized “Data Rooms” designed to mimic real market conditions and constraints, with hidden out-of-sample datasets to prevent overfitting.
+Key Features
+Problem Library & Difficulty Tiers
+Tiers: Foundation (Easy), Practitioner (Medium), Expert (Hard), plus “Market Day” (live-sim) scenarios.
+Domains/Tracks:
+Alpha & Factors: Fama-French style factors, alternative data signals, stationarity & regime detection.
+Portfolio: Markowitz & convex optimization with constraints (leverage, turnover, liquidity), robust optimization.
+Risk: VaR/ES, stress scenarios, scenario design, drawdown control, model validation.
+Execution & Microstructure: VWAP/TWAP, Almgren–Chriss, limit order book sim, impact models.
+Derivatives: Options greeks, implied vol surface, delta-hedging PnL attribution.
+Data Engineering: ETL on large tick data, schema design, kdb+/q queries, time-zone/calendar handling.
+ML for Markets: Walk-forward CV, leakage control, nested CV, online learning, feature drift checks.
+Compliance & Model Risk: Auditability, documentation, reproducibility, data lineage.
+In-Browser Coding & Notebooks
+Languages: Python, C++, q/kdb+, R, Julia, SQL.
+Editors: Code editor + research notebook mode (Jupyter-like) for narrative, charts, and results.
+Sandboxed Backtester: Deterministic, parameterized execution simulator (slippage, fees, latency, borrow) with hidden out-of-sample validation.
+Data Rooms: Curated synthetic datasets (daily, intraday, options, news sentiment, fundamentals) with realistic artifacts (delistings, survivorship bias, corporate actions).
+Scoring Beyond Correctness
+Primary Score: Composite of Sharpe, Sortino, Max Drawdown, Turnover, Capacity, and Stability.
+Robustness Checks: Walk-forward tests, regime shifts, bootstrap resampling, leakage detection.
+Performance vs. Baselines: Compare against buy-and-hold, classic factor sleeves, or benchmark optimizers.
+Learning Paths & Interview Prep
+Role-based tracks: “Alpha Researcher,” “Quant Dev,” “Risk,” “Execution,” “Derivatives.”
+Interview simulators: Timed coding rounds + case studies (e.g., “Design a robust backtest for alt‑data earnings momentum”).
+Solution Walkthroughs: Editorial and community solutions with research write-ups (assumptions, pitfalls, sensitivity).
+Contests & Tournaments (“Alpha Tournaments”)
+Periodic competitions on unseen datasets; score by out-of-sample performance & robustness.
+Leaderboards: “Sharpe Leaderboard,” “Risk-Adjusted PnL,” “Execution Efficiency.”
+Team mode: PM + Quant + Dev teams collaborate in private rooms.
+Enterprise & Hiring Modules
+Employer Dashboards: Custom problem sets; calibrate difficulty; score candidates on risk-adjusted performance and code quality.
+SSO, RBAC, Private Data Rooms: Firms can upload anonymized or synthetic internal datasets into private challenges.
+Compliance & Audit: Full reproducibility, environment capture, artifact logging, model cards.
+Community & Resources
+Discussion Forum & Research Notes: Peer reviews of strategy write-ups; checklist for data pitfalls.
+Curricula: From market foundations to advanced microstructure and ML for trading; guided paths.
+Mentor Office Hours: Weekly live sessions; recordings; curated reading lists.
+Example Challenges (Sample Prompts)
+Foundation (Easy)
+Compute rolling beta and idiosyncratic volatility relative to a benchmark; test stability across regimes.
+Clean and align corporate actions; ensure your total-return series matches reference checks.
+Practitioner (Medium)
+Build a cross-sectional alpha combining value, quality, and sentiment. Enforce turnover < 20% monthly.
+Implement an execution strategy (VWAP/TWAP hybrid) with transient impact; report slippage vs. arrival price.
+Expert (Hard)
+Construct an implied vol surface with arbitrage constraints; price path-dependent options and compute greeks.
+Design a walk-forward ML pipeline for intraday signals (feature drift detection, nested CV, leakage guards).
+Robust portfolio optimization with cardinality and sector constraints under liquidity caps; stress with 2008/2020-like scenarios.
+Compliance / Model Risk
+Produce a model card: assumptions, data lineage, validation, limitations, policy flags, and monitoring plan.
+Detect and document potential data leakage in a proposed alt-data pipeline (e.g., news timestamps vs. exchange events).
+
+
+Use Cases
+Individuals
+Prepare for quant research/dev/risk/execution interviews.
+Build a portfolio of reproducible research notebooks to showcase to employers.
+Transition from software to quant finance with structured paths and graded challenges.
+Hedge Funds & Asset Managers
+Hiring: Standardized, role-specific assessments that reflect real fund workflows.
+Onboarding & Upskilling: New-hire bootcamps with graded challenges and private Data Rooms.
+Internal Hackathons: Cross-team events to surface new signals and improve execution strategies.
+Compliance & Model Risk: Audit-ready traces of code, data, and results; enforce documentation standards.
+Universities & Bootcamps
+Course modules with auto-grading on performance & robustness; capstone tournaments.
+Bridge-to-industry programs focusing on backtesting hygiene and execution realities.
+Differentiators vs. LeetCode
+Performance-Based Scoring: Emphasis on risk-adjusted PnL and robustness, not just algorithm outputs.
+Market Sim & Data Rooms: Realistic slippage, fees, borrow, corporate actions, and out-of-sample validation.
+Research Literacy: Requires write-ups and sensitivity analysis; combats overfitting and data snooping.
+Enterprise Compliance: Reproducibility, audit logs, RBAC, model cards—aligned with real fund governance.
+MVP Scope (First 90–120 Days)
+Tracks: Alpha (daily cross-sectional), Portfolio (basic constraints), Execution (VWAP/TWAP sim), Risk (VaR/ES).
+Languages: Python + SQL (phase 1); add C++ and kdb+/q in phase 2.
+Data Rooms: Synthetic equities (daily & intraday), event calendar, corporate actions.
+Scoring: Sharpe + drawdown + turnover + robustness (simple walk-forward).
+Interview Mode: Timed prompts, automated report + code quality checks (lint, complexity, tests).
+Enterprise Pilot: SSO, private challenges, role-based dashboards, exportable reports.
+Metrics of Success
+Candidate throughput and enterprise adoption (time-to-hire reduction, better candidate signal).
+Learning outcomes: % improvement in Sharpe/stability on standard benchmarks after completing paths.
+Community health: solution write-ups, peer reviews, moderated discussion quality.
+Contest integrity: low leakage rates; consistency between in-sample and out-of-sample results.
+
+Quick Visual of the User Journey
+Pick a Role Track →
+Choose a Challenge →
+Code in Notebook Mode →
+Run Backtest & Execution Sim (auto logs) →
+Get Risk-Adjusted Score + Robustness Report →
+Submit Research Write-Up →
+Compare on Leaderboards →
+Share with Employers (portfolio links, reproducibility bundle).
