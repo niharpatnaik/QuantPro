@@ -21,11 +21,9 @@ export default function Dashboard() {
 
   if (isLoading) {
     return (
-      <Layout>
-        <div className="h-[80vh] flex items-center justify-center">
-          <Loader2 className="w-10 h-10 animate-spin text-primary" />
-        </div>
-      </Layout>
+      <div className="h-[80vh] flex items-center justify-center">
+        <Loader2 className="w-10 h-10 animate-spin text-primary" />
+      </div>
     );
   }
 
@@ -33,8 +31,7 @@ export default function Dashboard() {
   const totalScore = passedSubmissions.reduce((acc, curr) => acc + Number(curr.score || 0), 0);
 
   return (
-    <Layout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold font-display">Dashboard</h1>
           <p className="text-muted-foreground">Welcome back, {user?.firstName}. Here's your performance overview.</p>
@@ -128,7 +125,6 @@ export default function Dashboard() {
           </Card>
         </div>
       </div>
-    </Layout>
   );
 }
 

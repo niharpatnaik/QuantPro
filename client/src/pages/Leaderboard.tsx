@@ -15,8 +15,7 @@ const mockLeaderboard = [
 
 export default function Leaderboard() {
   return (
-    <Layout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold font-display">Global Leaderboard</h1>
           <p className="text-muted-foreground">Top performers ranked by risk-adjusted returns and problem solving score.</p>
@@ -71,6 +70,5 @@ export default function Leaderboard() {
           </Table>
         </div>
       </div>
-    </Layout>
   );
 }

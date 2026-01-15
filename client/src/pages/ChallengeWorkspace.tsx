@@ -88,7 +88,7 @@ export default function ChallengeWorkspace() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background overflow-hidden">
+    <div className="h-[calc(100vh-64px)] flex flex-col bg-background overflow-hidden -m-4 sm:-m-6 lg:-m-8">
       {/* Workspace Header */}
       <div className="h-14 border-b border-border flex items-center justify-between px-4 bg-card/50">
         <div className="flex items-center space-x-4">

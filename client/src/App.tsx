@@ -42,30 +42,27 @@ function Router() {
     );
   }
 
-  return (
-    <Switch>
-      <Route path="/">
-        {user ? <Redirect to="/dashboard" /> : <Landing />}
-      </Route>
-      
-      <Route path="/dashboard">
-        <ProtectedRoute component={Dashboard} />
-      </Route>
-      
-      <Route path="/challenges">
-        <ProtectedRoute component={ChallengeLibrary} />
-      </Route>
-      
-      <Route path="/challenge/:id">
-        <ProtectedRoute component={ChallengeWorkspace} />
-      </Route>
-      
-      <Route path="/leaderboard">
-        <ProtectedRoute component={Leaderboard} />
-      </Route>
+  // If user is not logged in, only show Landing or redirect to login
+  if (!user) {
+    return (
+      <Switch>
+        <Route path="/" component={Landing} />
+        <Route component={() => <Redirect to="/api/login" />} />
+      </Switch>
+    );
+  }
 
-      <Route component={NotFound} />
-    </Switch>
+  return (
+    <Layout>
+      <Switch>
+        <Route path="/" component={() => <Redirect to="/dashboard" />} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/challenges" component={ChallengeLibrary} />
+        <Route path="/challenge/:id" component={ChallengeWorkspace} />
+        <Route path="/leaderboard" component={Leaderboard} />
+        <Route component={NotFound} />
+      </Switch>
+    </Layout>
   );
 }
 
