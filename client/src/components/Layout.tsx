@@ -9,13 +9,15 @@ import {
   Menu,
   User,
   Zap,
-  Activity
+  Activity,
+  MessageSquare
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { FeedbackDialog } from "@/components/FeedbackDialog";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -28,7 +30,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Challenges', href: '/challenges', icon: Code2 },
     { name: 'Leaderboard', href: '/leaderboard', icon: Trophy },
-    ...(isAdmin ? [{ name: 'User Traffic', href: '/admin/traffic', icon: Activity }] : []),
+    ...(isAdmin ? [
+      { name: 'User Traffic', href: '/admin/traffic', icon: Activity },
+      { name: 'View All Feedback', href: '/admin/feedback', icon: MessageSquare },
+    ] : []),
   ];
 
   const NavContent = () => (
@@ -63,6 +68,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           );
         })}
       </nav>
+
+      <div className="px-4 pb-2">
+        <FeedbackDialog />
+      </div>
 
       <div className="p-4 border-t border-border/50">
         <div className="bg-secondary/50 rounded-xl p-4 mb-4">

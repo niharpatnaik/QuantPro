@@ -145,6 +145,36 @@ export async function registerRoutes(
     res.json(stats);
   });
 
+  // === Feedback ===
+  app.post("/api/feedback", isAuthenticated, async (req: any, res) => {
+    try {
+      const { message, pageUrl } = req.body;
+      if (!message || typeof message !== "string" || message.trim().length === 0) {
+        return res.status(400).json({ message: "Feedback message is required" });
+      }
+      const fb = await storage.createFeedback({
+        userId: req.user.id,
+        userEmail: req.user.email,
+        userName: `${req.user.firstName || ""} ${req.user.lastName || ""}`.trim() || null,
+        pageUrl: pageUrl || "/",
+        message: message.trim(),
+      });
+      res.status(201).json(fb);
+    } catch (err: any) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+  app.get("/api/admin/feedback", isAdmin, async (req, res) => {
+    const allFeedback = await storage.getAllFeedback();
+    res.json(allFeedback);
+  });
+
+  app.delete("/api/admin/feedback/:id", isAdmin, async (req, res) => {
+    await storage.deleteFeedback(Number(req.params.id));
+    res.json({ success: true });
+  });
+
   // Seed Data
   seedDatabase();
 

@@ -2,12 +2,15 @@ import { db } from "./db";
 import {
   challenges,
   submissions,
+  feedback,
   type Challenge,
   type InsertChallenge,
   type Submission,
-  type InsertSubmission
+  type InsertSubmission,
+  type Feedback,
+  type InsertFeedback
 } from "@shared/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, ilike } from "drizzle-orm";
 import { authStorage } from "./replit_integrations/auth/storage";
 import { chatStorage } from "./replit_integrations/chat/storage";
 
@@ -19,6 +22,11 @@ export interface IStorage {
   createChallenge(challenge: InsertChallenge): Promise<Challenge>;
   deleteAllChallenges(): Promise<void>;
   
+  // Feedback
+  createFeedback(fb: InsertFeedback): Promise<Feedback>;
+  getAllFeedback(): Promise<Feedback[]>;
+  deleteFeedback(id: number): Promise<void>;
+
   // Submissions
   getSubmissions(userId?: string): Promise<Submission[]>;
   getSubmission(id: number): Promise<Submission | undefined>;
@@ -53,6 +61,20 @@ export class DatabaseStorage implements IStorage {
   async deleteAllChallenges(): Promise<void> {
     await db.delete(submissions);
     await db.delete(challenges);
+  }
+
+  // Feedback
+  async createFeedback(fb: InsertFeedback): Promise<Feedback> {
+    const [row] = await db.insert(feedback).values(fb).returning();
+    return row;
+  }
+
+  async getAllFeedback(): Promise<Feedback[]> {
+    return await db.select().from(feedback).orderBy(desc(feedback.createdAt));
+  }
+
+  async deleteFeedback(id: number): Promise<void> {
+    await db.delete(feedback).where(eq(feedback.id, id));
   }
 
   // Submissions

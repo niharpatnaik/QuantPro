@@ -14,6 +14,7 @@ import ChallengeLibrary from "@/pages/ChallengeLibrary";
 import ChallengeWorkspace from "@/pages/ChallengeWorkspace";
 import Leaderboard from "@/pages/Leaderboard";
 import UserTraffic from "@/pages/UserTraffic";
+import AdminFeedback from "@/pages/AdminFeedback";
 import NotFound from "@/pages/not-found";
 
 function LoginRedirect() {
@@ -59,6 +60,9 @@ function Router() {
         <Route path="/leaderboard" component={Leaderboard} />
         <Route path="/admin/traffic">
           {user?.email === ADMIN_EMAIL ? <UserTraffic /> : <Redirect to="/dashboard" />}
+        </Route>
+        <Route path="/admin/feedback">
+          {user?.email === ADMIN_EMAIL ? <AdminFeedback /> : <Redirect to="/dashboard" />}
         </Route>
         <Route component={NotFound} />
       </Switch>

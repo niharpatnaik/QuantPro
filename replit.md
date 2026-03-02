@@ -53,8 +53,9 @@ This shared layer is critical: route definitions, Zod validation schemas, and da
 - `ChallengeWorkspace.tsx` — resizable split-pane editor + problem description
 - `Leaderboard.tsx` — global rankings (currently mock data)
 - `UserTraffic.tsx` — admin-only page showing all registered users, login times, challenges attempted, scores, and rankings
+- `AdminFeedback.tsx` — admin-only page showing all user feedback with search and delete
 
-Route protection: unauthenticated users can only see Landing; all other routes redirect to `/api/login`. The `/admin/traffic` route is restricted to `npatnaik@gmail.com` on both frontend (redirect) and backend (403).
+Route protection: unauthenticated users can only see Landing; all other routes redirect to `/api/login`. The `/admin/traffic` and `/admin/feedback` routes are restricted to `npatnaik@gmail.com` on both frontend (redirect) and backend (403).
 
 ### Backend Architecture
 
@@ -69,6 +70,9 @@ Route protection: unauthenticated users can only see Landing; all other routes r
 - `GET/POST /api/submissions` — submission handling
 - `GET /api/admin/users` — admin-only: all users with traffic stats (protected by `isAdmin` middleware)
 - `GET /api/admin/stats` — admin-only: aggregate stats (total users, users this week)
+- `POST /api/feedback` — submit user feedback (authenticated)
+- `GET /api/admin/feedback` — admin-only: all feedback entries
+- `DELETE /api/admin/feedback/:id` — admin-only: delete a feedback entry
 - Auth, chat, and image routes registered via Replit integration modules
 
 ### Replit Integrations (Modular)
@@ -96,6 +100,7 @@ Located in `server/replit_integrations/`, each integration is self-contained:
 | `users` | Authenticated user profiles |
 | `challenges` | Problem definitions (title, slug, difficulty, track, starter code, test cases, points) |
 | `submissions` | User code submissions with status, score (decimal), and financial metrics (JSONB) |
+| `feedback` | User feedback entries with userId, email, name, pageUrl, message, createdAt |
 | `conversations` | AI chat conversation threads |
 | `messages` | Individual chat messages per conversation |
 
