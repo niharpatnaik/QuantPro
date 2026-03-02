@@ -17,7 +17,7 @@ export default function Landing() {
       <header className="container mx-auto px-6 py-8 relative z-10 flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <Terminal className="w-8 h-8 text-primary" />
-          <span className="text-2xl font-bold font-display tracking-tight">AlphaArena</span>
+          <span className="text-2xl font-bold font-display tracking-tight">QuantPro</span>
         </div>
         <a href="/api/login">
           <Button variant="outline" data-testid="button-login" className="border-primary/20 hover:border-primary/50 hover:bg-primary/5">
@@ -43,7 +43,7 @@ export default function Landing() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Join elite candidates practicing on AlphaArena. Solve real-world trading challenges, backtest your strategies, and prove your alpha.
+              Join elite candidates practicing on QuantPro. Solve real-world trading challenges, backtest your strategies, and prove your alpha.
             </p>
           </motion.div>
 
@@ -111,7 +111,7 @@ export default function Landing() {
       </main>
 
       <footer className="container mx-auto px-6 py-8 border-t border-border/40 text-center text-muted-foreground text-sm relative z-10">
-        <p>© 2026 AlphaArena. All rights reserved.</p>
+        <p>© 2026 QuantPro. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -1,8 +1,8 @@
-# AlphaArena — replit.md
+# QuantPro — replit.md
 
 ## Overview
 
-AlphaArena is a LeetCode-style quantitative finance practice platform. Users solve real-world trading and investment challenges (backtesting strategies, building risk models, designing execution algorithms) and are scored on financial performance metrics like Sharpe ratio, max drawdown, and turnover — not just code correctness.
+QuantPro is a LeetCode-style quantitative finance practice platform. Users solve real-world trading and investment challenges (backtesting strategies, building risk models, designing execution algorithms) and are scored on financial performance metrics like Sharpe ratio, max drawdown, and turnover — not just code correctness.
 
 Target users: Alpha Researchers, Quant Developers, Portfolio Managers, Risk Managers, and Execution/Microstructure specialists.
 

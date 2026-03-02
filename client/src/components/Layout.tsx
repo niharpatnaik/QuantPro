@@ -38,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
             <Terminal className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight">AlphaArena</span>
+          <span className="font-display font-bold text-xl tracking-tight">QuantPro</span>
         </Link>
       </div>
 
@@ -100,7 +100,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <NavContent />
               </SheetContent>
             </Sheet>
-            <span className="font-display font-bold text-lg">AlphaArena</span>
+            <span className="font-display font-bold text-lg">QuantPro</span>
           </div>
 
           <div className="flex-1" /> {/* Spacer */}
