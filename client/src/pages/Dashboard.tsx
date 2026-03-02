@@ -1,7 +1,6 @@
 import { useAuth } from "@/hooks/use-auth";
 import { useSubmissions } from "@/hooks/use-submissions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Layout } from "@/components/Layout";
 import { Loader2, TrendingUp, Activity, CheckCircle2, Clock } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useRoute } from "wouter";
 import { useChallenge } from "@/hooks/use-challenges";
 import { useCreateSubmission } from "@/hooks/use-submissions";
-import { Layout } from "@/components/Layout";
 import { CodeEditor } from "@/components/CodeEditor";
 import { Button } from "@/components/ui/button";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";

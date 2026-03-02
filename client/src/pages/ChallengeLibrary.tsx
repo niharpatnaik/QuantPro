@@ -1,4 +1,3 @@
-import { Layout } from "@/components/Layout";
 import { useChallenges } from "@/hooks/use-challenges";
 import { ChallengeCard } from "@/components/ChallengeCard";
 import { Input } from "@/components/ui/input";
