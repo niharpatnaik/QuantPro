@@ -49,17 +49,16 @@ export async function registerRoutes(
 
   // === Submissions ===
   app.get(api.submissions.list.path, isAuthenticated, async (req: any, res) => {
-    const userId = req.user.claims.sub;
+    const userId = req.user.id;
     const submissions = await storage.getSubmissions(userId);
     res.json(submissions);
   });
 
   app.post(api.submissions.create.path, isAuthenticated, async (req: any, res) => {
     try {
-      // Inject the authenticated user ID
       const input = api.submissions.create.input.parse({
         ...req.body,
-        userId: req.user.claims.sub
+        userId: req.user.id
       });
 
       // MOCK GRADING ENGINE for MVP

@@ -104,10 +104,11 @@ Located in `server/replit_integrations/`, each integration is self-contained:
 
 ### Authentication
 
-- **Provider**: Replit OpenID Connect (OIDC)
-- **Flow**: `/api/login` → Replit OAuth → callback → upsert user → session cookie
-- **Session**: Stored in PostgreSQL (`sessions` table), 7-day TTL, secure HTTP-only cookies
-- **Client-side**: `useAuth()` hook queries `/api/auth/user`; returns `null` for unauthenticated users; redirects to `/api/login` for protected routes
+- **Provider**: Google OAuth 2.0 (via `passport-google-oauth20`)
+- **Flow**: `/api/login` → Google OAuth consent → `/api/auth/google/callback` → upsert user → session cookie → redirect to `/dashboard`
+- **Session**: Stored in PostgreSQL (`sessions` table), 7-day TTL, secure HTTP-only cookies. User serialized by ID.
+- **Client-side**: `useAuth()` hook queries `/api/auth/user`; returns `null` for unauthenticated users. Login links use `<a href="/api/login">` (full page navigation, NOT wouter `<Link>`)
+- **User object**: Stored in `users` table with Google profile ID as primary key. Available on `req.user` (with `.id`, `.email`, `.firstName`, `.lastName`, `.profileImageUrl`)
 
 ### Shared Routes Contract
 
@@ -122,13 +123,13 @@ Located in `server/replit_integrations/`, each integration is self-contained:
 |---|---|
 | `DATABASE_URL` | PostgreSQL connection string |
 | `SESSION_SECRET` | Express session signing secret |
-| `REPL_ID` | Replit environment ID (for OIDC client registration) |
-| `ISSUER_URL` | OIDC issuer (defaults to `https://replit.com/oidc`) |
+| `GOOGLE_CLIENT_ID` | Google OAuth 2.0 Client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth 2.0 Client Secret |
 | `AI_INTEGRATIONS_OPENAI_API_KEY` | OpenAI API key (routed via Replit AI proxy) |
 | `AI_INTEGRATIONS_OPENAI_BASE_URL` | OpenAI base URL (Replit AI proxy endpoint) |
 
 ### Third-Party Services
-- **Replit Auth (OIDC)** — user authentication; mandatory, app won't function without it
+- **Google OAuth 2.0** — user authentication via Gmail; no Replit account required
 - **OpenAI API** — AI Quant Assistant chat + image generation; accessed via Replit AI Integrations proxy
 - **Google Fonts** — DM Sans, Outfit, JetBrains Mono, Fira Code loaded via CDN in `client/index.html`
 
