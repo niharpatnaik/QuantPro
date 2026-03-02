@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Play, Loader2, RotateCcw, CheckCircle2, XCircle } from "lucide-react";
+import { Play, Loader2, RotateCcw, CheckCircle2, XCircle, Terminal } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { AIQuantAssistant } from "@/components/AIQuantAssistant";
 import { useAuth } from "@/hooks/use-auth";
