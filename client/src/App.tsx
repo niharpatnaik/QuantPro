@@ -1,4 +1,5 @@
 import { Switch, Route, Redirect } from "wouter";
+import { useEffect } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -14,22 +15,15 @@ import ChallengeWorkspace from "@/pages/ChallengeWorkspace";
 import Leaderboard from "@/pages/Leaderboard";
 import NotFound from "@/pages/not-found";
 
-function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
-  const { user, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (!user) {
-    return <Redirect to="/api/login" />;
-  }
-
-  return <Component />;
+function LoginRedirect() {
+  useEffect(() => {
+    window.location.href = "/api/login";
+  }, []);
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    </div>
+  );
 }
 
 function Router() {
@@ -43,12 +37,11 @@ function Router() {
     );
   }
 
-  // If user is not logged in, only show Landing or redirect to login
   if (!user) {
     return (
       <Switch>
         <Route path="/" component={Landing} />
-        <Route component={() => <Redirect to="/api/login" />} />
+        <Route component={LoginRedirect} />
       </Switch>
     );
   }

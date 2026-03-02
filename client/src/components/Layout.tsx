@@ -128,11 +128,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link href="/api/login">
-                <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/20">
+              <a href="/api/login">
+                <Button size="sm" data-testid="button-header-login" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/20">
                   Login
                 </Button>
-              </Link>
+              </a>
             )}
           </div>
         </header>

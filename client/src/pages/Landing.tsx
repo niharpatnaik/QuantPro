@@ -19,11 +19,11 @@ export default function Landing() {
           <Terminal className="w-8 h-8 text-primary" />
           <span className="text-2xl font-bold font-display tracking-tight">AlphaArena</span>
         </div>
-        <Link href="/api/login">
-          <Button variant="outline" className="border-primary/20 hover:border-primary/50 hover:bg-primary/5">
+        <a href="/api/login">
+          <Button variant="outline" data-testid="button-login" className="border-primary/20 hover:border-primary/50 hover:bg-primary/5">
             Log In
           </Button>
-        </Link>
+        </a>
       </header>
 
       <main className="flex-1 container mx-auto px-6 flex flex-col justify-center relative z-10">
@@ -53,12 +53,12 @@ export default function Landing() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link href="/api/login">
+            <a href="/api/login">
               <Button size="lg" data-testid="button-start-practicing" className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/25 rounded-full">
                 Start Practicing
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-            </Link>
+            </a>
             <Link href="/leaderboard">
               <Button size="lg" variant="ghost" data-testid="button-view-leaderboard" className="h-14 px-8 text-lg rounded-full hover:bg-secondary/50">
                 View Leaderboard
