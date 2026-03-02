@@ -13,6 +13,7 @@ import Dashboard from "@/pages/Dashboard";
 import ChallengeLibrary from "@/pages/ChallengeLibrary";
 import ChallengeWorkspace from "@/pages/ChallengeWorkspace";
 import Leaderboard from "@/pages/Leaderboard";
+import UserTraffic from "@/pages/UserTraffic";
 import NotFound from "@/pages/not-found";
 
 function LoginRedirect() {
@@ -25,6 +26,8 @@ function LoginRedirect() {
     </div>
   );
 }
+
+const ADMIN_EMAIL = "npatnaik@gmail.com";
 
 function Router() {
   const { user, isLoading } = useAuth();
@@ -54,6 +57,9 @@ function Router() {
         <Route path="/challenges" component={ChallengeLibrary} />
         <Route path="/challenge/:id" component={ChallengeWorkspace} />
         <Route path="/leaderboard" component={Leaderboard} />
+        <Route path="/admin/traffic">
+          {user?.email === ADMIN_EMAIL ? <UserTraffic /> : <Redirect to="/dashboard" />}
+        </Route>
         <Route component={NotFound} />
       </Switch>
     </Layout>

@@ -1,10 +1,13 @@
 import { users, type User, type UpsertUser } from "@shared/models/auth";
 import { db } from "../../db";
-import { eq } from "drizzle-orm";
+import { eq, desc, gte, count, sql } from "drizzle-orm";
+import { submissions } from "@shared/schema";
 
 export interface IAuthStorage {
   getUser(id: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
+  getAllUsers(): Promise<User[]>;
+  getUserTrafficStats(): Promise<{ totalUsers: number; usersThisWeek: number }>;
 }
 
 class AuthStorage implements IAuthStorage {
@@ -14,6 +17,8 @@ class AuthStorage implements IAuthStorage {
   }
 
   async upsertUser(userData: UpsertUser): Promise<User> {
+    const now = new Date();
+
     if (userData.email) {
       const [existingByEmail] = await db
         .select()
@@ -28,7 +33,8 @@ class AuthStorage implements IAuthStorage {
             firstName: userData.firstName,
             lastName: userData.lastName,
             profileImageUrl: userData.profileImageUrl,
-            updatedAt: new Date(),
+            updatedAt: now,
+            lastLoginAt: now,
           })
           .where(eq(users.email, userData.email))
           .returning();
@@ -38,7 +44,7 @@ class AuthStorage implements IAuthStorage {
 
     const [user] = await db
       .insert(users)
-      .values(userData)
+      .values({ ...userData, lastLoginAt: now })
       .onConflictDoUpdate({
         target: users.id,
         set: {
@@ -46,11 +52,32 @@ class AuthStorage implements IAuthStorage {
           firstName: userData.firstName,
           lastName: userData.lastName,
           profileImageUrl: userData.profileImageUrl,
-          updatedAt: new Date(),
+          updatedAt: now,
+          lastLoginAt: now,
         },
       })
       .returning();
     return user;
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    return await db.select().from(users).orderBy(desc(users.lastLoginAt));
+  }
+
+  async getUserTrafficStats(): Promise<{ totalUsers: number; usersThisWeek: number }> {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    const [totalResult] = await db.select({ count: count() }).from(users);
+    const [weekResult] = await db
+      .select({ count: count() })
+      .from(users)
+      .where(gte(users.lastLoginAt, oneWeekAgo));
+
+    return {
+      totalUsers: totalResult.count,
+      usersThisWeek: weekResult.count,
+    };
   }
 }
 

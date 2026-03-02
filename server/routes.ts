@@ -1,11 +1,20 @@
-import type { Express } from "express";
+import type { Express, RequestHandler } from "express";
 import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
-import { setupAuth, registerAuthRoutes, isAuthenticated } from "./replit_integrations/auth";
+import { setupAuth, registerAuthRoutes, isAuthenticated, authStorage } from "./replit_integrations/auth";
 import { registerChatRoutes } from "./replit_integrations/chat";
 import { registerImageRoutes } from "./replit_integrations/image";
+
+const ADMIN_EMAIL = "npatnaik@gmail.com";
+
+const isAdmin: RequestHandler = (req: any, res, next) => {
+  if (!req.isAuthenticated() || !req.user || req.user.email !== ADMIN_EMAIL) {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+  next();
+};
 
 export async function registerRoutes(
   httpServer: Server,
@@ -98,6 +107,41 @@ export async function registerRoutes(
       return res.status(404).json({ message: 'Submission not found' });
     }
     res.json(submission);
+  });
+
+  // === Admin: User Traffic (owner only) ===
+  app.get("/api/admin/users", isAdmin, async (req, res) => {
+    const allUsers = await authStorage.getAllUsers();
+    const allSubmissions = await storage.getSubmissions();
+
+    const userStats = allUsers.map((user) => {
+      const userSubs = allSubmissions.filter((s) => s.userId === user.id);
+      const totalScore = userSubs.reduce(
+        (sum, s) => sum + Number(s.score || 0),
+        0
+      );
+      return {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        profileImageUrl: user.profileImageUrl,
+        createdAt: user.createdAt,
+        lastLoginAt: user.lastLoginAt,
+        challengesAttempted: userSubs.length,
+        totalScore,
+      };
+    });
+
+    userStats.sort((a, b) => b.totalScore - a.totalScore);
+    userStats.forEach((u, i) => (u as any).rank = i + 1);
+
+    res.json(userStats);
+  });
+
+  app.get("/api/admin/stats", isAdmin, async (req, res) => {
+    const stats = await authStorage.getUserTrafficStats();
+    res.json(stats);
   });
 
   // Seed Data

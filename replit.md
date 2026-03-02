@@ -52,8 +52,9 @@ This shared layer is critical: route definitions, Zod validation schemas, and da
 - `ChallengeLibrary.tsx` — searchable/filterable list of challenges
 - `ChallengeWorkspace.tsx` — resizable split-pane editor + problem description
 - `Leaderboard.tsx` — global rankings (currently mock data)
+- `UserTraffic.tsx` — admin-only page showing all registered users, login times, challenges attempted, scores, and rankings
 
-Route protection: unauthenticated users can only see Landing; all other routes redirect to `/api/login`.
+Route protection: unauthenticated users can only see Landing; all other routes redirect to `/api/login`. The `/admin/traffic` route is restricted to `npatnaik@gmail.com` on both frontend (redirect) and backend (403).
 
 ### Backend Architecture
 
@@ -66,6 +67,8 @@ Route protection: unauthenticated users can only see Landing; all other routes r
 **Route groups** (in `server/routes.ts`):
 - `GET/POST /api/challenges` — challenge CRUD
 - `GET/POST /api/submissions` — submission handling
+- `GET /api/admin/users` — admin-only: all users with traffic stats (protected by `isAdmin` middleware)
+- `GET /api/admin/stats` — admin-only: aggregate stats (total users, users this week)
 - Auth, chat, and image routes registered via Replit integration modules
 
 ### Replit Integrations (Modular)

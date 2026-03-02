@@ -8,7 +8,8 @@ import {
   Terminal,
   Menu,
   User,
-  Zap
+  Zap,
+  Activity
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -21,10 +22,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { user, logout } = useAuth();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  const isAdmin = user?.email === "npatnaik@gmail.com";
+
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Challenges', href: '/challenges', icon: Code2 },
     { name: 'Leaderboard', href: '/leaderboard', icon: Trophy },
+    ...(isAdmin ? [{ name: 'User Traffic', href: '/admin/traffic', icon: Activity }] : []),
   ];
 
   const NavContent = () => (
