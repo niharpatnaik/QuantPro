@@ -17,6 +17,7 @@ export interface IStorage {
   getChallenge(id: number): Promise<Challenge | undefined>;
   getChallengeBySlug(slug: string): Promise<Challenge | undefined>;
   createChallenge(challenge: InsertChallenge): Promise<Challenge>;
+  deleteAllChallenges(): Promise<void>;
   
   // Submissions
   getSubmissions(userId?: string): Promise<Submission[]>;
@@ -47,6 +48,11 @@ export class DatabaseStorage implements IStorage {
   async createChallenge(insertChallenge: InsertChallenge): Promise<Challenge> {
     const [challenge] = await db.insert(challenges).values(insertChallenge).returning();
     return challenge;
+  }
+
+  async deleteAllChallenges(): Promise<void> {
+    await db.delete(submissions);
+    await db.delete(challenges);
   }
 
   // Submissions

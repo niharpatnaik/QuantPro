@@ -11,7 +11,7 @@ export const challenges = pgTable("challenges", {
   title: text("title").notNull(),
   slug: text("slug").notNull().unique(),
   description: text("description").notNull(),
-  difficulty: text("difficulty").notNull(), // 'Foundation', 'Practitioner', 'Expert'
+  difficulty: text("difficulty").notNull(), // 'Beginner', 'Practitioner', 'Expert'
   track: text("track").notNull(), // 'Alpha', 'Risk', 'Execution', 'Portfolio'
   starterCode: text("starter_code").notNull(),
   testCases: jsonb("test_cases").$type<any[]>().notNull(),

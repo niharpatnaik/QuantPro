@@ -11,7 +11,7 @@ interface ChallengeCardProps {
 
 export function ChallengeCard({ challenge }: ChallengeCardProps) {
   const difficultyColor = {
-    'Foundation': 'bg-blue-500/10 text-blue-500 border-blue-500/20',
+    'Beginner': 'bg-blue-500/10 text-blue-500 border-blue-500/20',
     'Practitioner': 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
     'Expert': 'bg-red-500/10 text-red-500 border-red-500/20',
   }[challenge.difficulty] || 'bg-secondary text-secondary-foreground';
@@ -39,11 +39,11 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
         <div className="mt-6 flex items-center space-x-4 text-xs text-muted-foreground font-mono">
           <div className="flex items-center">
             <TrendingUp className="w-3 h-3 mr-1" />
-            <span>Alpha</span>
+            <span>{challenge.track}</span>
           </div>
           <div className="flex items-center">
             <Clock className="w-3 h-3 mr-1" />
-            <span>~45m</span>
+            <span>{challenge.difficulty === 'Beginner' ? '~30m' : challenge.difficulty === 'Practitioner' ? '~45m' : '~90m'}</span>
           </div>
         </div>
       </CardContent>

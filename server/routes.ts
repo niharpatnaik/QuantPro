@@ -3,6 +3,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
+import { challengesSeed } from "./seed-challenges";
 import { setupAuth, registerAuthRoutes, isAuthenticated, authStorage } from "./replit_integrations/auth";
 import { registerChatRoutes } from "./replit_integrations/chat";
 import { registerImageRoutes } from "./replit_integrations/image";
@@ -152,38 +153,13 @@ export async function registerRoutes(
 
 async function seedDatabase() {
   const existing = await storage.getChallenges();
-  if (existing.length === 0) {
-    await storage.createChallenge({
-      title: "Rolling Beta Calculation",
-      slug: "rolling-beta",
-      description: "Calculate the rolling 60-day beta of a stock against the SPY ETF using log returns.",
-      difficulty: "Foundation",
-      track: "Alpha",
-      points: 100,
-      starterCode: `import pandas as pd\nimport numpy as np\n\ndef calculate_rolling_beta(returns, benchmark_returns, window=60):\n    # Your code here\n    pass`,
-      testCases: []
-    });
-
-    await storage.createChallenge({
-      title: "VWAP Execution Algorithm",
-      slug: "vwap-execution",
-      description: "Implement a Volume Weighted Average Price (VWAP) execution algorithm that minimizes slippage.",
-      difficulty: "Practitioner",
-      track: "Execution",
-      points: 200,
-      starterCode: `def vwap_schedule(volume_profile, total_shares):\n    # Return a schedule of shares to trade per bin\n    pass`,
-      testCases: []
-    });
-
-    await storage.createChallenge({
-      title: "Portfolio Optimization with Constraints",
-      slug: "portfolio-opt",
-      description: "Optimize a portfolio of 50 assets to maximize Sharpe Ratio while keeping sector exposure within +/- 5%.",
-      difficulty: "Expert",
-      track: "Portfolio",
-      points: 300,
-      starterCode: `def optimize_portfolio(returns, cov_matrix, constraints):\n    # Return weights\n    pass`,
-      testCases: []
-    });
+  if (existing.length < 60) {
+    if (existing.length > 0) {
+      await storage.deleteAllChallenges();
+    }
+    for (const challenge of challengesSeed) {
+      await storage.createChallenge(challenge);
+    }
+    console.log(`Seeded ${challengesSeed.length} challenges`);
   }
 }

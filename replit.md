@@ -7,7 +7,7 @@ AlphaArena is a LeetCode-style quantitative finance practice platform. Users sol
 Target users: Alpha Researchers, Quant Developers, Portfolio Managers, Risk Managers, and Execution/Microstructure specialists.
 
 Key features:
-- Tiered challenge library (Foundation, Practitioner, Expert) across tracks: Alpha & Factors, Portfolio, Risk, Execution, Data Engineering, ML for Markets
+- 60-challenge library (20 Beginner, 20 Practitioner, 20 Expert) across tracks: Alpha, Portfolio, Risk, Execution, Data
 - In-browser Python code editor with syntax highlighting
 - Submission scoring based on financial metrics (Sharpe, Sortino, drawdown, turnover, stability)
 - AI Quant Assistant (chat interface powered by OpenAI)
