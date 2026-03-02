@@ -33,9 +33,10 @@ export async function setupAuth(app: Express) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  const baseUrl = process.env.REPLIT_DOMAINS
-    ? `https://${process.env.REPLIT_DOMAINS.split(",")[0]}`
-    : process.env.APP_URL || `http://localhost:${process.env.PORT || 5000}`;
+  const baseUrl = process.env.APP_URL
+    || (process.env.REPLIT_DOMAINS
+      ? `https://${process.env.REPLIT_DOMAINS.split(",")[0]}`
+      : `http://localhost:${process.env.PORT || 5000}`);
   const callbackURL = `${baseUrl}/api/auth/google/callback`;
 
   passport.use(
