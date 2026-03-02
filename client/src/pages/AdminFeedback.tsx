@@ -89,7 +89,7 @@ export default function AdminFeedback() {
           <TableHeader>
             <TableRow className="border-border/50 hover:bg-transparent">
               <TableHead className="w-[160px]">Date</TableHead>
-              <TableHead className="w-[160px]">User</TableHead>
+              <TableHead className="w-[160px]">Name / Email</TableHead>
               <TableHead className="w-[140px]">Page</TableHead>
               <TableHead>Feedback</TableHead>
               <TableHead className="w-[80px]"></TableHead>
