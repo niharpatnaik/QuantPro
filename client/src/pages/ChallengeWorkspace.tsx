@@ -99,7 +99,11 @@ export default function ChallengeWorkspace() {
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => setCode(challenge.starterCode)}
+            onClick={() => {
+              setCode(challenge.starterCode);
+              setOutput(null);
+              toast({ title: "Code Reset", description: "Editor restored to starter code." });
+            }}
           >
             <RotateCcw className="w-4 h-4 mr-2" />
             Reset
