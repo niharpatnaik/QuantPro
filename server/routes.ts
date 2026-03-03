@@ -7,6 +7,7 @@ import { challengesSeed } from "./seed-challenges";
 import { setupAuth, registerAuthRoutes, isAuthenticated, authStorage } from "./replit_integrations/auth";
 import { registerChatRoutes } from "./replit_integrations/chat";
 import { registerImageRoutes } from "./replit_integrations/image";
+import { gradeSubmission } from "./grading-engine";
 
 const ADMIN_EMAIL = "npatnaik@gmail.com";
 
@@ -71,26 +72,28 @@ export async function registerRoutes(
         userId: req.user.id
       });
 
-      // MOCK GRADING ENGINE for MVP
-      // In a real app, this would run code in a sandbox
-      const isSuccess = Math.random() > 0.3;
-      const status = isSuccess ? 'passed' : 'failed';
-      const sharpe = (Math.random() * 3).toFixed(2); // 0.00 to 3.00
-      const drawdown = (Math.random() * -20).toFixed(2); // 0.00 to -20.00
-      const score = isSuccess ? (Math.random() * 40 + 60).toFixed(0) : "0";
+      const challenge = await storage.getChallenge(input.challengeId);
+      if (!challenge) {
+        return res.status(404).json({ message: "Challenge not found" });
+      }
+
+      const gradingResult = await gradeSubmission(
+        input.code,
+        challenge.title,
+        challenge.description,
+        challenge.difficulty,
+        challenge.points,
+        challenge.starterCode
+      );
 
       const submission = await storage.createSubmission({
         ...input,
-        status,
-        score,
-        metrics: {
-          sharpe: Number(sharpe),
-          drawdown: Number(drawdown),
-          stability: Number((Math.random() * 100).toFixed(1))
-        }
+        status: gradingResult.status,
+        score: String(gradingResult.score),
+        metrics: gradingResult.metrics,
       });
       
-      res.status(201).json(submission);
+      res.status(201).json({ ...submission, feedback: gradingResult.feedback });
     } catch (err) {
       if (err instanceof z.ZodError) {
         return res.status(400).json({

@@ -9,7 +9,7 @@ Target users: Alpha Researchers, Quant Developers, Portfolio Managers, Risk Mana
 Key features:
 - 60-challenge library (20 Beginner, 20 Practitioner, 20 Expert) across tracks: Alpha, Portfolio, Risk, Execution, Data
 - In-browser Python code editor with syntax highlighting
-- Submission scoring based on financial metrics (Sharpe, Sortino, drawdown, turnover, stability)
+- AI-powered code grading engine (GPT-4o-mini evaluates correctness, quality, efficiency)
 - AI Quant Assistant (chat interface powered by OpenAI)
 - User dashboard with performance tracking
 - Global leaderboard
@@ -82,6 +82,19 @@ Located in `server/replit_integrations/`, each integration is self-contained:
 1. **Auth** (`/auth/`) — Replit OIDC via `openid-client` + Passport.js. Handles login/logout/session. Users upserted into the `users` table on login. `isAuthenticated` middleware guards protected routes.
 
 2. **Chat** (`/chat/`) — OpenAI-backed conversational AI (the "AI Quant Assistant"). Conversations and messages persisted to the database. Uses `AI_INTEGRATIONS_OPENAI_API_KEY` env var routed through Replit's AI proxy.
+
+### AI Grading Engine
+
+Located in `server/grading-engine.ts`. Replaces the former mock grading engine.
+
+- **Model**: GPT-4o-mini via OpenAI API (same credentials as chat)
+- **Flow**: User submits code → backend fetches challenge details → sends code + challenge description to GPT → GPT returns structured JSON with scores → backend computes weighted score and stores result
+- **Scoring**: Weighted average of Correctness (50%), Code Quality (30%), Efficiency (20%). Score is scaled to challenge point value.
+- **Pass threshold**: ≥60% correctness required to pass
+- **Quant metrics**: Sharpe ratio, max drawdown, stability — generated proportional to code quality
+- **Feedback**: 3-6 specific, actionable feedback lines referencing the actual code
+- **Retry**: Single retry on model parse failure for robustness
+- **Console output**: Formatted grading report shown in the workspace console panel
 
 3. **Image** (`/image/`) — OpenAI image generation (`gpt-image-1` model) exposed via `/api/generate-image`.
 

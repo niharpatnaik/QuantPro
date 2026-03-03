@@ -49,12 +49,10 @@ export default function ChallengeWorkspace() {
         code,
       });
 
-      // Simulate output based on result
-      // In a real app, this would come from the backend execution
-      setOutput(result.status === 'passed' 
-        ? `Result: PASSED\nScore: ${result.score}\n\nExecution Time: 45ms\nMemory Usage: 12MB`
-        : `Result: FAILED\n\nError: Assertion Failed in test_case_2\nExpected: 0.85\nGot: 0.82`
-      );
+      setOutput((result as any).feedback || (result.status === 'passed' 
+        ? `Result: PASSED\nScore: ${result.score}`
+        : `Result: FAILED`
+      ));
 
       if (result.status === 'passed') {
         toast({
@@ -147,10 +145,23 @@ export default function ChallengeWorkspace() {
                   <div className="p-4 bg-secondary/30 rounded-lg border border-border">
                     <h4 className="font-semibold mb-2">Scoring Criteria</h4>
                     <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Correctness (50%)</li>
-                      <li>• Sharpe Ratio (30%)</li>
-                      <li>• Execution Speed (20%)</li>
+                      <li>• Correctness — 50% (does the code solve the problem?)</li>
+                      <li>• Code Quality — 30% (vectorization, edge cases, style)</li>
+                      <li>• Efficiency — 20% (algorithmic complexity, memory)</li>
                     </ul>
+                  </div>
+                  <div className="p-4 bg-secondary/30 rounded-lg border border-border">
+                    <h4 className="font-semibold mb-2">Quant Metrics</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Sharpe Ratio — risk-adjusted return measure</li>
+                      <li>• Max Drawdown — largest peak-to-trough decline</li>
+                      <li>• Stability — consistency of strategy performance</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
+                    <p className="text-xs text-muted-foreground">
+                      Your code is evaluated by an AI grading engine that analyzes correctness, quality, and efficiency. You need ≥60% correctness to pass.
+                    </p>
                   </div>
                 </div>
               </TabsContent>
