@@ -1,8 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Code2, LineChart, Terminal, Shield, Mail } from "lucide-react";
-import { SiGoogle, SiGithub, SiApple } from "react-icons/si";
+import { ArrowRight, Code2, LineChart, Terminal, Shield } from "lucide-react";
+import { SiGoogle } from "react-icons/si";
 import { motion } from "framer-motion";
 
 export default function Landing() {
@@ -20,8 +19,9 @@ export default function Landing() {
           <span className="text-2xl font-bold font-display tracking-tight">QuantPro</span>
         </div>
         <a href="/api/login">
-          <Button variant="outline" data-testid="button-login" className="border-primary/20 hover:border-primary/50 hover:bg-primary/5">
-            Log In
+          <Button data-testid="button-login" className="rounded-full px-6 bg-white text-black font-semibold gap-2">
+            <SiGoogle className="w-4 h-4" />
+            Sign in
           </Button>
         </a>
       </header>
@@ -66,28 +66,6 @@ export default function Landing() {
             </Link>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            className="flex items-center justify-center gap-3 text-muted-foreground text-sm"
-          >
-            <span data-testid="text-sign-in-with">Sign in with</span>
-            <div className="flex items-center gap-2">
-              <Badge variant="secondary" data-testid="text-auth-method-google" className="gap-1.5 bg-secondary/60 border border-border/50 text-foreground">
-                <SiGoogle className="w-3.5 h-3.5" /> Google
-              </Badge>
-              <Badge variant="secondary" data-testid="text-auth-method-github" className="gap-1.5 bg-secondary/60 border border-border/50 text-foreground">
-                <SiGithub className="w-3.5 h-3.5" /> GitHub
-              </Badge>
-              <Badge variant="secondary" data-testid="text-auth-method-apple" className="gap-1.5 bg-secondary/60 border border-border/50 text-foreground">
-                <SiApple className="w-3.5 h-3.5" /> Apple
-              </Badge>
-              <Badge variant="secondary" data-testid="text-auth-method-email" className="gap-1.5 bg-secondary/60 border border-border/50 text-foreground">
-                <Mail className="w-3.5 h-3.5" /> Email
-              </Badge>
-            </div>
-          </motion.div>
         </div>
 
         {/* Feature Grid */}
