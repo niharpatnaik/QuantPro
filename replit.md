@@ -19,6 +19,7 @@ Key features:
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Deployment: Only deploy to quantpro.us (custom domain). Do NOT deploy to any Replit subdomain (e.g. alpha-arena--npatnaik.replit.app). All URLs in the codebase must reference quantpro.us only.
 
 ---
 
