@@ -1,12 +1,33 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Code2, LineChart, Terminal, Shield } from "lucide-react";
+import { ArrowRight, Code2, LineChart, Terminal, Shield, AlertTriangle } from "lucide-react";
 import { SiGoogle } from "react-icons/si";
 import { motion } from "framer-motion";
 
+function isEmbeddedBrowser() {
+  const ua = navigator.userAgent || "";
+  return /FBAN|FBAV|Instagram|LinkedInApp|Line\/|MicroMessenger|Snapchat|GSA\/|FB_IAB|FBIOS|FBSV|Twitter\/|BytedanceWebview|TikTok|Bytedance|webview|wv\b/i.test(ua)
+    || (ua.includes("Mobile") && ua.includes("Version/") && !ua.includes("Chrome") && !ua.includes("Firefox") && !ua.includes("Safari/6") && ua.includes("Safari"));
+}
+
 export default function Landing() {
+  const embedded = isEmbeddedBrowser();
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col relative overflow-hidden">
+      {/* Embedded browser warning */}
+      {embedded && (
+        <div className="relative z-50 bg-yellow-500/10 border-b border-yellow-500/30 px-4 py-3 text-center">
+          <div className="flex items-center justify-center gap-2 text-yellow-400 text-sm font-medium">
+            <AlertTriangle className="w-4 h-4 shrink-0" />
+            <span>
+              You're viewing this in an in-app browser. To sign in with Google, open this page in{" "}
+              <strong>Chrome</strong> or <strong>Safari</strong> instead.
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Background Gradients */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]" />
@@ -18,12 +39,19 @@ export default function Landing() {
           <Terminal className="w-8 h-8 text-primary" />
           <span className="text-2xl font-bold font-display tracking-tight">QuantPro</span>
         </div>
-        <a href="/api/login">
-          <Button data-testid="button-login" className="rounded-full px-6 bg-white text-black font-semibold gap-2">
+        {embedded ? (
+          <Button disabled className="rounded-full px-6 bg-white/30 text-white/50 font-semibold gap-2 cursor-not-allowed" data-testid="button-login-disabled">
             <SiGoogle className="w-4 h-4" />
-            Sign in
+            Open in Chrome to Sign in
           </Button>
-        </a>
+        ) : (
+          <a href="/api/login">
+            <Button data-testid="button-login" className="rounded-full px-6 bg-white text-black font-semibold gap-2">
+              <SiGoogle className="w-4 h-4" />
+              Sign in
+            </Button>
+          </a>
+        )}
       </header>
 
       <main className="flex-1 container mx-auto px-6 flex flex-col justify-center relative z-10">
