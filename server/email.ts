@@ -167,8 +167,9 @@ export async function sendWelcomeEmail(to: string, firstName: string): Promise<v
           <!-- Footer -->
           <tr>
             <td style="padding:32px 0 0 0;" align="center">
-              <p style="font-size:13px;color:#4b5563;margin:0 0 8px 0;">
-                Questions? Reply to this email or reach us at <a href="mailto:hello@quantpro.us" style="color:#22c55e;text-decoration:none;">hello@quantpro.us</a>
+              <p style="font-size:13px;color:#4b5563;margin:0 0 12px 0;">
+                Have thoughts or questions? We'd love to hear from you —<br />
+                <a href="https://quantpro.us/challenges" style="color:#22c55e;text-decoration:none;font-weight:600;">share your feedback directly in QuantPro →</a>
               </p>
               <p style="font-size:12px;color:#374151;margin:0;">
                 © 2026 QuantPro · <a href="https://quantpro.us" style="color:#4b5563;text-decoration:none;">quantpro.us</a>
