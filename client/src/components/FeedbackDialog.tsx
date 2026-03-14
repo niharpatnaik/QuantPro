@@ -18,9 +18,10 @@ import { MessageSquarePlus, Loader2 } from "lucide-react";
 
 interface FeedbackDialogProps {
   autoOpen?: boolean;
+  onAutoOpenConsumed?: () => void;
 }
 
-export function FeedbackDialog({ autoOpen = false }: FeedbackDialogProps) {
+export function FeedbackDialog({ autoOpen = false, onAutoOpenConsumed }: FeedbackDialogProps) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [location] = useLocation();
@@ -29,6 +30,7 @@ export function FeedbackDialog({ autoOpen = false }: FeedbackDialogProps) {
   useEffect(() => {
     if (autoOpen) {
       setOpen(true);
+      onAutoOpenConsumed?.();
     }
   }, [autoOpen]);
 

@@ -81,7 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </nav>
 
       <div className="px-4 pb-2">
-        <FeedbackDialog autoOpen={autoOpenFeedback} />
+        <FeedbackDialog autoOpen={autoOpenFeedback} onAutoOpenConsumed={() => setAutoOpenFeedback(false)} />
       </div>
 
       <div className="p-4 border-t border-border/50">
