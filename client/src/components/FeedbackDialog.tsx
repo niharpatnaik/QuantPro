@@ -16,23 +16,23 @@ import {
 } from "@/components/ui/dialog";
 import { MessageSquarePlus, Loader2 } from "lucide-react";
 
-interface FeedbackDialogProps {
-  autoOpen?: boolean;
-  onAutoOpenConsumed?: () => void;
-}
-
-export function FeedbackDialog({ autoOpen = false, onAutoOpenConsumed }: FeedbackDialogProps) {
+export function FeedbackDialog() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [location] = useLocation();
   const { toast } = useToast();
 
   useEffect(() => {
-    if (autoOpen) {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("feedback") === "true") {
       setOpen(true);
-      onAutoOpenConsumed?.();
+      params.delete("feedback");
+      const newUrl =
+        window.location.pathname +
+        (params.toString() ? "?" + params.toString() : "");
+      window.history.replaceState({}, "", newUrl);
     }
-  }, [autoOpen]);
+  }, []);
 
   const submitFeedback = useMutation({
     mutationFn: async (data: { message: string; pageUrl: string }) => {

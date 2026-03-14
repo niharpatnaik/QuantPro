@@ -12,7 +12,7 @@ import {
   Activity,
   MessageSquare
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -23,17 +23,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const { user, logout } = useAuth();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [autoOpenFeedback, setAutoOpenFeedback] = useState(false);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("feedback") === "true") {
-      setAutoOpenFeedback(true);
-      params.delete("feedback");
-      const newUrl = window.location.pathname + (params.toString() ? "?" + params.toString() : "");
-      window.history.replaceState({}, "", newUrl);
-    }
-  }, []);
 
   const isAdmin = user?.email === "npatnaik@gmail.com";
 
@@ -81,7 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </nav>
 
       <div className="px-4 pb-2">
-        <FeedbackDialog autoOpen={autoOpenFeedback} onAutoOpenConsumed={() => setAutoOpenFeedback(false)} />
+        <FeedbackDialog />
       </div>
 
       <div className="p-4 border-t border-border/50">
