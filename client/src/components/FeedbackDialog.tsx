@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -16,11 +16,21 @@ import {
 } from "@/components/ui/dialog";
 import { MessageSquarePlus, Loader2 } from "lucide-react";
 
-export function FeedbackDialog() {
+interface FeedbackDialogProps {
+  autoOpen?: boolean;
+}
+
+export function FeedbackDialog({ autoOpen = false }: FeedbackDialogProps) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [location] = useLocation();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (autoOpen) {
+      setOpen(true);
+    }
+  }, [autoOpen]);
 
   const submitFeedback = useMutation({
     mutationFn: async (data: { message: string; pageUrl: string }) => {

@@ -169,7 +169,7 @@ export async function sendWelcomeEmail(to: string, firstName: string): Promise<v
             <td style="padding:32px 0 0 0;" align="center">
               <p style="font-size:13px;color:#4b5563;margin:0 0 12px 0;">
                 Have thoughts or questions? We'd love to hear from you —<br />
-                <a href="https://quantpro.us/challenges" style="color:#22c55e;text-decoration:none;font-weight:600;">share your feedback directly in QuantPro →</a>
+                <a href="https://quantpro.us/challenges?feedback=true" style="color:#22c55e;text-decoration:none;font-weight:600;">share your feedback directly in QuantPro →</a>
               </p>
               <p style="font-size:12px;color:#374151;margin:0;">
                 © 2026 QuantPro · <a href="https://quantpro.us" style="color:#4b5563;text-decoration:none;">quantpro.us</a>
