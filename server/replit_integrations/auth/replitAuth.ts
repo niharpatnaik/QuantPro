@@ -4,6 +4,7 @@ import session from "express-session";
 import type { Express, RequestHandler } from "express";
 import connectPg from "connect-pg-simple";
 import { authStorage } from "./storage";
+import { sendWelcomeEmail } from "../../email";
 
 export function getSession() {
   const sessionTtl = 7 * 24 * 60 * 60 * 1000;
@@ -49,13 +50,19 @@ export async function setupAuth(app: Express) {
       async (_accessToken, _refreshToken, profile, done) => {
         try {
           const email = profile.emails?.[0]?.value || "";
-          const user = await authStorage.upsertUser({
+          const firstName = profile.name?.givenName || profile.displayName || "";
+          const { user, isNew } = await authStorage.upsertUser({
             id: profile.id,
             email,
-            firstName: profile.name?.givenName || profile.displayName || "",
+            firstName,
             lastName: profile.name?.familyName || "",
             profileImageUrl: profile.photos?.[0]?.value || null,
           });
+          if (isNew && email) {
+            sendWelcomeEmail(email, firstName).catch((err) =>
+              console.error("[email] welcome email error:", err.message)
+            );
+          }
           done(null, user);
         } catch (error) {
           done(error as Error);

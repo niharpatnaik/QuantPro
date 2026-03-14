@@ -5,7 +5,7 @@ import { submissions } from "@shared/schema";
 
 export interface IAuthStorage {
   getUser(id: string): Promise<User | undefined>;
-  upsertUser(user: UpsertUser): Promise<User>;
+  upsertUser(user: UpsertUser): Promise<{ user: User; isNew: boolean }>;
   getAllUsers(): Promise<User[]>;
   getUserTrafficStats(): Promise<{ totalUsers: number; usersThisWeek: number }>;
 }
@@ -16,7 +16,7 @@ class AuthStorage implements IAuthStorage {
     return user;
   }
 
-  async upsertUser(userData: UpsertUser): Promise<User> {
+  async upsertUser(userData: UpsertUser): Promise<{ user: User; isNew: boolean }> {
     const now = new Date();
 
     if (userData.email) {
@@ -38,9 +38,12 @@ class AuthStorage implements IAuthStorage {
           })
           .where(eq(users.email, userData.email))
           .returning();
-        return updated;
+        return { user: updated, isNew: false };
       }
     }
+
+    const existing = await db.select().from(users).where(eq(users.id, userData.id));
+    const isNew = existing.length === 0;
 
     const [user] = await db
       .insert(users)
@@ -57,7 +60,7 @@ class AuthStorage implements IAuthStorage {
         },
       })
       .returning();
-    return user;
+    return { user, isNew };
   }
 
   async getAllUsers(): Promise<User[]> {
