@@ -20,6 +20,7 @@ Key features:
 
 Preferred communication style: Simple, everyday language.
 Deployment: Only deploy to quantpro.us (custom domain). Do NOT deploy to any Replit subdomain (e.g. alpha-arena--npatnaik.replit.app). All URLs in the codebase must reference quantpro.us only.
+GitHub sync: ALWAYS push to GitHub automatically after every deploy/publish, and after any meaningful change. Do not wait for the user to ask. Use `git push https://niharpatnaik:$GITHUB_PERSONAL_ACCESS_TOKEN@github.com/niharpatnaik/QuantPro.git main`. Remote `origin` is set to the same URL.
 
 ---
 
